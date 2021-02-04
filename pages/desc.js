@@ -3,15 +3,13 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
 import styles from '../styles/Desc.module.css';
+import dbConnect from '../middleware/dbConnect';
+import User from '../models/User';
 
-const Desc = () => {
+const Desc = ({ users }) => {
 	const [session, loading] = useSession();
 	const router = useRouter();
-	// useEffect(() => {
-	// 	if (!loading && !session) {
-	// 		router.push('/login');
-	// 	}
-	// }, [loading]);
+	console.log(users);
 	return (
 		<>
 			<Jumbotron className={styles.desc}>
@@ -30,5 +28,20 @@ const Desc = () => {
 		</>
 	);
 };
+
+export async function getServerSideProps() {
+	await dbConnect();
+
+	const result = await User.find({});
+	const users = result.map(doc => {
+		const user = doc.toObject();
+		user._id = user._id.toString();
+		user.createdAt = user.createdAt.toString();
+		user.updatedAt = user.updatedAt.toString();
+		return user;
+	});
+
+	return { props: { users: users } };
+}
 
 export default Desc;
