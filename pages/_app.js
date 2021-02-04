@@ -1,7 +1,20 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import Head from 'next/head';
+import Navbar from '../components/NavBar';
+import { Provider } from 'next-auth/client';
+import { Container } from 'react-bootstrap';
+import Auth from '../components/Auth';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+	return (
+		<Provider session={pageProps.session}>
+			<Navbar />
+			<Container as={'main'} className='main' fluid>
+				<Component {...pageProps} />
+			</Container>
+		</Provider>
+	);
 }
 
-export default MyApp
+export default MyApp;

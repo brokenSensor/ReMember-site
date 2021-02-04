@@ -1,0 +1,13 @@
+/* .desc {
+	width: 95vw;
+	height: 95vh;
+	margin: 5vh auto 0 auto;
+} */
+.item {
+	background-color: aqua;
+	border-radius: 10px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: orangered;
+	text-align: center;
+}
