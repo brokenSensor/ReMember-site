@@ -3,7 +3,7 @@ import User from '../../../models/User';
 
 export default async function handler(req, res) {
 	const {
-		query: { username },
+		query: { username, notes },
 		method,
 	} = req;
 
@@ -21,34 +21,40 @@ export default async function handler(req, res) {
 						if (err) {
 							res.send(err);
 						} else if (result) {
+							checkAndRes(result);
 							res.send(result);
 						} else {
 							res.send('User not found!');
 						}
 					}
-				); /* find user notes in the data in database */
+				); /* find user notes */
 			} catch (err) {
 				res.send(err);
 			}
 			break;
 		case 'PUT':
 			try {
-				await User.updateOne(
-					{ name: username },
-					{ notes: req.body.notes },
-					err => {
-						if (err) {
-							res.send(err);
-						} else {
-							res.send('Updated!');
-						}
+				await User.updateOne({ name: username }, { notes: notes }, err => {
+					if (err) {
+						res.send(err);
+					} else {
+						res.send('Updated!');
 					}
-				); /* Update notes */
+				}); /* Update notes */
 			} catch (err) {
 				res.send(err);
 			}
+			break;
 		default:
 			res.status(400).json({ success: false });
 			break;
+	}
+}
+
+function checkAndRes(result) {
+	if (result === []) {
+		return (result = { title: 'Your first note', content: 'Your first anser' });
+	} else {
+		return result;
 	}
 }
