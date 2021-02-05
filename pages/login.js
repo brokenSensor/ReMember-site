@@ -9,6 +9,9 @@ export default function Login() {
 				<Button onClick={() => signIn('github', { callbackUrl: '/' })}>
 					Sign In with GitHub
 				</Button>
+				<Button onClick={() => signIn('google', { callbackUrl: '/' })}>
+					Sign In with Google
+				</Button>
 			</Jumbotron>
 		</>
 	);

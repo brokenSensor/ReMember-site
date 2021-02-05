@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 						if (err) {
 							res.send(err);
 						} else if (result) {
-							checkAndRes(result);
+							result = checkAndRes(result);
 							res.send(result);
 						} else {
 							res.send('User not found!');
@@ -52,8 +52,12 @@ export default async function handler(req, res) {
 }
 
 function checkAndRes(result) {
-	if (result === []) {
-		return (result = { title: 'Your first note', content: 'Your first anser' });
+	if (result.notes.length === 0) {
+		result.notes = JSON.stringify({
+			title: 'Your first note',
+			content: 'Your first anser',
+		});
+		return result;
 	} else {
 		return result;
 	}
