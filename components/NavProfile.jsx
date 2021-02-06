@@ -36,6 +36,9 @@ function NavProfile() {
 			)}
 			{session && (
 				<>
+					<Nav.Link onClick={() => router.push('/desc/' + session.user.name)}>
+						My Desc
+					</Nav.Link>
 					<Image
 						width={25}
 						height={25}

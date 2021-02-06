@@ -14,7 +14,6 @@ function NavBar() {
 			<Navbar.Collapse id='basic-navbar-nav'>
 				<Nav className='ml-auto mr-5'>
 					<Nav.Link onClick={() => router.push('/')}>Home</Nav.Link>
-					<Nav.Link onClick={() => router.push('/desc')}>My Desc</Nav.Link>
 					<NavProfile />
 				</Nav>
 			</Navbar.Collapse>

@@ -1,15 +1,13 @@
-import { useSession } from 'next-auth/client';
+import { useSession, getSession } from 'next-auth/client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
-import styles from '../styles/Desc.module.css';
-import dbConnect from '../middleware/dbConnect';
-import User from '../models/User';
+import styles from '../../styles/Desc.module.css';
 
-const Desc = ({ users }) => {
+const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
 	const router = useRouter();
-	console.log(users);
+	const { user } = router.query;
 	return (
 		<>
 			<Jumbotron className={styles.desc}>
@@ -30,18 +28,14 @@ const Desc = ({ users }) => {
 };
 
 export async function getServerSideProps() {
-	await dbConnect();
-
-	const result = await User.find({});
-	const users = result.map(doc => {
-		const user = doc.toObject();
-		user._id = user._id.toString();
-		user.createdAt = user.createdAt.toString();
-		user.updatedAt = user.updatedAt.toString();
-		return user;
-	});
-
-	return { props: { users: users } };
+	// fetch('http://localhost:3000/api/desc')
+	// 	.then(response => {
+	// 		return response.json();
+	// 	})
+	// 	.then(data => {
+	// 		console.log(data);
+	// 	});
+	return { props: { notes: 'res' } };
 }
 
 export default Desc;
