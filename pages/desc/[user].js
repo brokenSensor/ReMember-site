@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
+import Card from '../../components/Card';
 
 const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
@@ -11,7 +12,10 @@ const Desc = ({ notes }) => {
 	return (
 		<>
 			<Jumbotron className={styles.desc}>
-				<Row>
+				{notes.map(note => {
+					return <Card note={note}></Card>;
+				})}
+				{/* <Row>
 					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
 						<h2>Quastion</h2>
 					</Col>
@@ -21,21 +25,23 @@ const Desc = ({ notes }) => {
 					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
 						<h2>Quastion</h2>
 					</Col>
-				</Row>
+				</Row> */}
 			</Jumbotron>
 		</>
 	);
 };
 
-export async function getServerSideProps() {
-	// fetch('http://localhost:3000/api/desc')
-	// 	.then(response => {
-	// 		return response.json();
-	// 	})
-	// 	.then(data => {
-	// 		console.log(data);
-	// 	});
-	return { props: { notes: 'res' } };
+export async function getServerSideProps(context) {
+	const { user } = context.query;
+	const res = await fetch('http://localhost:3000/api/desc/' + user);
+	let notes = await res.json().finally(200);
+	notes = notes.notes;
+	notes = notes.map(note => {
+		return JSON.parse(note);
+	});
+	console.log(notes);
+
+	return { props: { notes: notes } };
 }
 
 export default Desc;
