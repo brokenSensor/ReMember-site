@@ -11,3 +11,6 @@
 	border-color: orangered;
 	text-align: center;
 }
+.btnDelete {
+	float: right;
+}
