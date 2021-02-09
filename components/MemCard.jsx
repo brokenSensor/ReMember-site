@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Col, Container, Jumbotron, Row, Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desc.module.css';
 
-function MemCard({ note }) {
+function MemCard({ note, deleteNote, id }) {
 	const [showAnswer, setShowAnswer] = useState(false);
 	return (
 		<Card style={{ width: '18rem' }}>
@@ -17,7 +17,13 @@ function MemCard({ note }) {
 				>
 					Reveal
 				</Button>
-				<Button variant='danger' className={styles.btnDelete}>
+				<Button
+					onClick={() => {
+						deleteNote(id);
+					}}
+					variant='danger'
+					className={styles.btnDelete}
+				>
 					Delete
 				</Button>
 			</Card.Body>

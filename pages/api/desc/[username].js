@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 }
 
 function checkAndRes(result) {
-	if (result.notes.length === 0) {
+	if (result.notes === null || result.notes.length === 0) {
 		result.notes = JSON.stringify({
 			title: 'Your first note',
 			content: 'Your first anser',

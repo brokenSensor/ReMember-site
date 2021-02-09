@@ -16,6 +16,7 @@ import {
 	Button,
 	Image,
 	NavDropdown,
+	Spinner,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/client';
@@ -31,10 +32,13 @@ function NavProfile() {
 	return (
 		<>
 			{' '}
-			{!session && (
+			{loading ? (
+				<Spinner animation='border' role='status'>
+					<span className='sr-only'>Loading...</span>
+				</Spinner>
+			) : !session ? (
 				<Nav.Link onClick={() => router.push('/login')}>Login</Nav.Link>
-			)}
-			{session && (
+			) : (
 				<>
 					<Nav.Link onClick={() => router.push('/desc/' + session.user.name)}>
 						My Desc
