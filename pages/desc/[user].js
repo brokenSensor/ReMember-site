@@ -1,7 +1,7 @@
 import { useSession, getSession } from 'next-auth/client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
+import { Col, Container, Jumbotron, Row, Button } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
 import Card from '../../components/MemCard';
 
@@ -26,6 +26,7 @@ const Desc = ({ notes }) => {
 	return (
 		<>
 			<Jumbotron className={styles.desc}>
+				<Button>Add Note</Button>
 				{notes.map((note, id) => {
 					return <Card deleteNote={deleteNote} note={note} id={id}></Card>;
 				})}

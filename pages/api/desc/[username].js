@@ -11,38 +11,57 @@ export default async function handler(req, res) {
 
 	switch (method) {
 		case 'GET':
+			// try {
+			// 	await User.findOne(
+			// 		{
+			// 			name: username,
+			// 		},
+			// 		['notes'],
+			// 		(err, result) => {
+			// 			if (err) {
+			// 				res.send(err);
+			// 			} else if (result) {
+			// 				result = checkAndRes(result);
+			// 				res.send(result);
+			// 			} else {
+			// 				res.send('User not found!');
+			// 			}
+			// 		}
+			// 	); /* find user notes */
+			// } catch (err) {
+			// 	res.send(err);
+			// }
 			try {
-				await User.findOne(
+				const userNotes = await User.findOne(
 					{
 						name: username,
 					},
 					['notes'],
 					(err, result) => {
 						if (err) {
-							res.send(err);
+							res.status(400).json({ success: false, error: err });
 						} else if (result) {
-							result = checkAndRes(result);
-							res.send(result);
+							res.status(200).json({ success: true, data: result });
 						} else {
-							res.send('User not found!');
+							res.status(400).json({ success: false });
 						}
 					}
-				); /* find user notes */
-			} catch (err) {
-				res.send(err);
+				);
+			} catch (error) {
+				res.status(400).json({ success: false });
 			}
 			break;
 		case 'PUT':
 			try {
 				await User.updateOne({ name: username }, { notes: notes }, err => {
 					if (err) {
-						res.send(err);
+						res.status(400).json({ success: false, error: err });
 					} else {
-						res.send('Updated!');
+						res.status(200).json({ success: true });
 					}
 				}); /* Update notes */
 			} catch (err) {
-				res.send(err);
+				res.status(400).json({ success: false, error: err });
 			}
 			break;
 		default:
