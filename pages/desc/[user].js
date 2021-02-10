@@ -4,25 +4,13 @@ import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row, Button } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
 import Card from '../../components/MemCard';
+import dbConnect from '../../middleware/dbConnect';
+import User from '../../models/User';
 
 const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
 	const router = useRouter();
 	const { user } = router.query;
-	async function deleteNote(id) {
-		const data = notes;
-		data.splice(id, 1);
-		const response = await fetch(
-			'http://localhost:3000/api/desc/' + session.user.name,
-			{
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ notes: data }),
-			}
-		);
-	}
 	return (
 		<>
 			<Jumbotron className={styles.desc}>
@@ -46,14 +34,16 @@ const Desc = ({ notes }) => {
 	);
 };
 
-export async function getServerSideProps(context) {
-	const { user } = context.query;
-	const res = await fetch('http://localhost:3000/api/desc/' + user);
-	let { notes } = await res.json().finally(200);
-	notes = notes.map(note => {
-		return JSON.parse(note);
-	});
+export async function getServerSideProps({ params }) {
+	await dbConnect();
 
+	const userNotes = await User.findOne(
+		{
+			name: params.user,
+		},
+		['notes']
+	);
+	const { notes } = userNotes;
 	return { props: { notes: notes } };
 }
 

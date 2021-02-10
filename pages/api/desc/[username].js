@@ -11,26 +11,6 @@ export default async function handler(req, res) {
 
 	switch (method) {
 		case 'GET':
-			// try {
-			// 	await User.findOne(
-			// 		{
-			// 			name: username,
-			// 		},
-			// 		['notes'],
-			// 		(err, result) => {
-			// 			if (err) {
-			// 				res.send(err);
-			// 			} else if (result) {
-			// 				result = checkAndRes(result);
-			// 				res.send(result);
-			// 			} else {
-			// 				res.send('User not found!');
-			// 			}
-			// 		}
-			// 	); /* find user notes */
-			// } catch (err) {
-			// 	res.send(err);
-			// }
 			try {
 				const userNotes = await User.findOne(
 					{
@@ -67,17 +47,5 @@ export default async function handler(req, res) {
 		default:
 			res.status(400).json({ success: false });
 			break;
-	}
-}
-
-function checkAndRes(result) {
-	if (result.notes === null || result.notes.length === 0) {
-		result.notes = JSON.stringify({
-			title: 'Your first note',
-			content: 'Your first anser',
-		});
-		return result;
-	} else {
-		return result;
 	}
 }
