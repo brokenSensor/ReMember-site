@@ -47,7 +47,6 @@ function AddNoteForm({ addNote, setShowForm }) {
 					/>
 				</Form.Group>
 				<Button
-					sub
 					className={styles.button}
 					onClick={() => {
 						submit();

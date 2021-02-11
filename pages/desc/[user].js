@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row, Button, Form } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
-import Card from '../../components/MemCard';
+import MemCard from '../../components/MemCard';
 import dbConnect from '../../middleware/dbConnect';
 import User from '../../models/User';
 import { useState } from 'react';
@@ -11,30 +11,33 @@ import AddNoteForm from '../../components/AddNoteForm';
 
 const Desc = ({ notes }) => {
 	const [showForm, setShowForm] = useState(false);
+	const [notesState, setNotesState] = useState(notes);
 	const [session, loading] = useSession();
 	const router = useRouter();
 	const { user } = router.query;
 	async function deleteNote(id) {
-		notes.splice(id, 1);
-		const response = await fetch(
-			'http://localhost:3000/api/desc/' + session.user.name,
-			{
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ notes: notes }),
-			}
-		);
-	}
-	async function addNote(noteObj) {
-		notes.push(noteObj);
+		const newN = [...notesState];
+		newN.splice(id, 1);
+		setNotesState(newN);
 		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ notes: notes }),
+			body: JSON.stringify({ notes: newN }),
+		});
+	}
+	async function addNote(noteObj) {
+		setNotesState(prV => {
+			prV.push(noteObj);
+			return prV;
+		});
+		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ notes: notesState }),
 		});
 	}
 	return (
@@ -51,10 +54,10 @@ const Desc = ({ notes }) => {
 					Add Note
 				</Button>
 				<Row>
-					{notes.map((note, id) => {
+					{notesState.map((note, id) => {
 						return (
-							<Col>
-								<Card deleteNote={deleteNote} note={note} id={id}></Card>
+							<Col xs={12} sm={11} md={6} lg={4} key={id}>
+								<MemCard deleteNote={deleteNote} note={note} id={id}></MemCard>
 							</Col>
 						);
 					})}

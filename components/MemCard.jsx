@@ -9,14 +9,25 @@ function MemCard({ note, deleteNote, id }) {
 			<Card.Body>
 				<Card.Title>{note.title}</Card.Title>
 				{showAnswer && <Card.Text>{note.content}</Card.Text>}
-				<Button
-					variant='primary'
-					onClick={() => {
-						setShowAnswer(!showAnswer);
-					}}
-				>
-					Reveal
-				</Button>
+				{showAnswer ? (
+					<Button
+						variant='warning'
+						onClick={() => {
+							setShowAnswer(!showAnswer);
+						}}
+					>
+						Done
+					</Button>
+				) : (
+					<Button
+						variant='primary'
+						onClick={() => {
+							setShowAnswer(!showAnswer);
+						}}
+					>
+						Reveal
+					</Button>
+				)}
 				<Button
 					onClick={() => {
 						deleteNote(id);
