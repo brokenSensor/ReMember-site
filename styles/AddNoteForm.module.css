@@ -1,0 +1,20 @@
+.form {
+	position: fixed;
+	width: 500px;
+	height: 200px;
+	top: 50%;
+	left: 50%;
+	margin-top: -100px; /* Negative half of height. */
+	margin-left: -250px; /* Negative half of width. */
+}
+.back {
+	position: fixed;
+	background-color: aqua;
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+	z-index: 1000;
+}
+.button {
+}

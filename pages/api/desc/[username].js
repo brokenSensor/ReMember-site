@@ -1,9 +1,10 @@
+import { parseBody } from 'next/dist/next-server/server/api-utils';
 import dbConnect from '../../../middleware/dbConnect';
 import User from '../../../models/User';
 
 export default async function handler(req, res) {
 	const {
-		query: { username, notes },
+		query: { username },
 		method,
 	} = req;
 
@@ -33,13 +34,17 @@ export default async function handler(req, res) {
 			break;
 		case 'PUT':
 			try {
-				await User.updateOne({ name: username }, { notes: notes }, err => {
-					if (err) {
-						res.status(400).json({ success: false, error: err });
-					} else {
-						res.status(200).json({ success: true });
+				await User.updateOne(
+					{ name: username },
+					{ notes: req.body.notes },
+					err => {
+						if (err) {
+							res.status(400).json({ success: false, error: err });
+						} else {
+							res.status(200).json({ success: true });
+						}
 					}
-				}); /* Update notes */
+				); /* Update notes */
 			} catch (err) {
 				res.status(400).json({ success: false, error: err });
 			}
