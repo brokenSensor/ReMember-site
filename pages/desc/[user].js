@@ -4,16 +4,15 @@ import styles from '../../styles/Desc.module.css';
 import MemCard from '../../components/MemCard';
 import dbConnect from '../../middleware/dbConnect';
 import User from '../../models/User';
-import { useState, useReducer } from 'react';
+import { useState } from 'react';
 import AddNoteForm from '../../components/AddNoteForm';
 
 const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
+
 	const [showForm, setShowForm] = useState(false);
 	const [editMode, setEditMode] = useState(false);
-
 	const [notesState, setNotesState] = useState(notes);
-	const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
 	async function deleteNote(id) {
 		notesState.splice(id, 1);
@@ -92,8 +91,9 @@ const Desc = ({ notes }) => {
 					onClick={() => {
 						setEditMode(!editMode);
 					}}
+					style={{ backgroundColor: editMode && 'red' }}
 				>
-					Edit Mode
+					All Notes
 				</Button>
 				{editMode ? (
 					<Row>
@@ -129,18 +129,6 @@ const Desc = ({ notes }) => {
 						})}
 					</Row>
 				)}
-
-				{/* <Row>
-					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
-						<h2>Quastion</h2>
-					</Col>
-					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
-						<h2>Quastion</h2>
-					</Col>
-					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
-						<h2>Quastion</h2>
-					</Col>
-				</Row> */}
 			</Jumbotron>
 		</>
 	);
@@ -164,7 +152,7 @@ export async function getServerSideProps({ params }) {
 				content: 'Your First Answer',
 				lastReviewDate: today.toJSON(),
 				curve: {
-					review: addDays(new Date(), 1).toJSON(),
+					review: addDays(new Date(), 0).toJSON(),
 					adder: 2,
 				},
 			},

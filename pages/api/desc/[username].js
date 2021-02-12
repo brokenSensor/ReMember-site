@@ -48,6 +48,7 @@ export default async function handler(req, res) {
 			} catch (err) {
 				res.status(400).json({ success: false, error: err });
 			}
+			dbConnect(true);
 			break;
 		default:
 			res.status(400).json({ success: false });

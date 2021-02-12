@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 require('dotenv').config();
 
 async function dbConnect() {
+	// if (close) {
+	// 	mongoose.disconnect();
+	// 	return;
+	// }
 	// check if we have a connection to the database or if it's currently
 	// connecting or disconnecting (readyState 1, 2 and 3)
 	if (mongoose.connection.readyState >= 1) {

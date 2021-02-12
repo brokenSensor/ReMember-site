@@ -9,7 +9,7 @@
 }
 .back {
 	position: fixed;
-	background-color: aqua;
+	background-color: rgba(0, 0, 0, 0.397);
 	width: 100vw;
 	height: 100vh;
 	padding: 0;

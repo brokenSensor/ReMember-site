@@ -54,6 +54,14 @@ function AddNoteForm({ addNote, setShowForm }) {
 				>
 					Add
 				</Button>
+				<Button
+					className={styles.button}
+					onClick={() => {
+						setShowForm(false);
+					}}
+				>
+					Close
+				</Button>
 			</Form>
 		</Container>
 	);
