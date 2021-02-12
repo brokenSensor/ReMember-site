@@ -1,20 +1,19 @@
 import { useSession, getSession } from 'next-auth/client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Col, Container, Jumbotron, Row, Button, Form } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
 import MemCard from '../../components/MemCard';
 import dbConnect from '../../middleware/dbConnect';
 import User from '../../models/User';
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import AddNoteForm from '../../components/AddNoteForm';
 
 const Desc = ({ notes }) => {
+	const [session, loading] = useSession();
 	const [showForm, setShowForm] = useState(false);
 	const [notesState, setNotesState] = useState(notes);
-	const [session, loading] = useSession();
-	const router = useRouter();
-	const { user } = router.query;
+	console.log(notes);
+	const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
 	async function deleteNote(id) {
 		const newN = [...notesState];
 		newN.splice(id, 1);
@@ -27,7 +26,13 @@ const Desc = ({ notes }) => {
 			body: JSON.stringify({ notes: newN }),
 		});
 	}
+
 	async function addNote(noteObj) {
+		noteObj.lastReviewDate = new Date().toJSON();
+		noteObj.curve = {
+			review: addDays(new Date(), 1).toJSON(),
+			adder: 2,
+		};
 		setNotesState(prV => {
 			prV.push(noteObj);
 			return prV;
@@ -40,6 +45,33 @@ const Desc = ({ notes }) => {
 			body: JSON.stringify({ notes: notesState }),
 		});
 	}
+
+	async function updateStage(id) {
+		setNotesState(prV => {
+			prV[id].lastReviewDate = new Date().toJSON();
+			prV[id].curve.review = addDays(new Date(), prV[id].curve.adder).toJSON();
+			prV[id].curve.adder += 1;
+			return prV;
+		});
+
+		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ notes: notesState }),
+		});
+	}
+
+	function noteFilter(note) {
+		const today = new Date();
+		if (today > note.curve.review) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	return (
 		<>
 			{showForm && (
@@ -55,11 +87,18 @@ const Desc = ({ notes }) => {
 				</Button>
 				<Row>
 					{notesState.map((note, id) => {
-						return (
-							<Col xs={12} sm={11} md={6} lg={4} key={id}>
-								<MemCard deleteNote={deleteNote} note={note} id={id}></MemCard>
-							</Col>
-						);
+						if (noteFilter(note)) {
+							return (
+								<Col xs={12} sm={11} md={6} lg={4} key={id}>
+									<MemCard
+										updateStage={updateStage}
+										deleteNote={deleteNote}
+										note={note}
+										id={id}
+									></MemCard>
+								</Col>
+							);
+						}
 					})}
 				</Row>
 
@@ -90,9 +129,26 @@ export async function getServerSideProps({ params }) {
 	);
 	let { notes } = userNotes;
 	if (notes === null || notes.length === 0) {
-		notes = [{ title: 'Your First Note', content: 'Your First Answer' }];
+		const today = new Date();
+		notes = [
+			{
+				title: 'Your First Note',
+				content: 'Your First Answer',
+				lastReviewDate: today.toJSON(),
+				curve: {
+					review: addDays(new Date(), 1).toJSON(),
+					adder: 2,
+				},
+			},
+		];
 	}
 	return { props: { notes: notes } };
 }
 
 export default Desc;
+
+function addDays(date, days) {
+	var result = new Date(date);
+	result.setDate(result.getDate() + days);
+	return result;
+}

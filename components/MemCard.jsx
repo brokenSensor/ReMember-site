@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Col, Container, Jumbotron, Row, Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desc.module.css';
 
-function MemCard({ note, deleteNote, id }) {
+function MemCard({ note, deleteNote, id, updateStage }) {
 	const [showAnswer, setShowAnswer] = useState(false);
 	return (
 		<Card style={{ width: '18rem' }}>
@@ -13,7 +13,7 @@ function MemCard({ note, deleteNote, id }) {
 					<Button
 						variant='warning'
 						onClick={() => {
-							setShowAnswer(!showAnswer);
+							updateStage(id);
 						}}
 					>
 						Done
