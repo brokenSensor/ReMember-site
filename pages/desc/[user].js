@@ -79,45 +79,38 @@ const Desc = ({ notes }) => {
 			{showForm && (
 				<AddNoteForm setShowForm={setShowForm} addNote={addNote}></AddNoteForm>
 			)}
-			<Jumbotron className={styles.desc}>
-				<Button
-					onClick={() => {
-						setShowForm(!showForm);
-					}}
-				>
-					Add Note
-				</Button>
-				<Button
-					onClick={() => {
-						setEditMode(!editMode);
-					}}
-					style={{ backgroundColor: editMode && 'red' }}
-				>
-					All Notes
-				</Button>
-				{editMode ? (
-					<Row>
-						{notesState.map((note, id) => {
-							return (
-								<Col xs={12} sm={11} md={6} lg={4} key={id}>
-									<MemCard
-										edit={true}
-										updateStage={updateStage}
-										deleteNote={deleteNote}
-										note={note}
-										id={id}
-									></MemCard>
-								</Col>
-							);
-						})}
-					</Row>
-				) : (
-					<Row>
-						{notesState.map((note, id) => {
-							if (noteFilter(note)) {
+			<Container fluid className={styles.desc}>
+				<Row className={styles.btnRow}>
+					<Col>
+						<Button
+							onClick={() => {
+								setShowForm(!showForm);
+							}}
+							className={styles.btnAddNote}
+						>
+							Add Note
+						</Button>
+					</Col>
+					<Col>
+						<Button
+							onClick={() => {
+								setEditMode(!editMode);
+							}}
+							style={{ backgroundColor: editMode && 'red' }}
+							className={styles.btnAllNotes}
+						>
+							All Notes
+						</Button>
+					</Col>
+				</Row>
+				<Row className={styles.memCardRow}>
+					{editMode ? (
+						<>
+							{notesState.map((note, id) => {
 								return (
-									<Col xs={12} sm={11} md={6} lg={4} key={id}>
+									<Col xs={12} sm={6} md={6} lg={4} xl={3} key={id}>
 										<MemCard
+											edit={true}
 											updateStage={updateStage}
 											deleteNote={deleteNote}
 											note={note}
@@ -125,11 +118,28 @@ const Desc = ({ notes }) => {
 										></MemCard>
 									</Col>
 								);
-							}
-						})}
-					</Row>
-				)}
-			</Jumbotron>
+							})}
+						</>
+					) : (
+						<>
+							{notesState.map((note, id) => {
+								if (noteFilter(note)) {
+									return (
+										<Col xs={12} sm={6} md={6} lg={4} xl={3} key={id}>
+											<MemCard
+												updateStage={updateStage}
+												deleteNote={deleteNote}
+												note={note}
+												id={id}
+											></MemCard>
+										</Col>
+									);
+								}
+							})}
+						</>
+					)}
+				</Row>
+			</Container>
 		</>
 	);
 };

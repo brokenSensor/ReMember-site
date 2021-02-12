@@ -1,3 +1,10 @@
 .item {
 	margin: 2rem auto;
+	width: 16rem;
+}
+@media (max-width: 576px) {
+	.item {
+		margin: 2rem auto;
+		width: 15rem;
+	}
 }

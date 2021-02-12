@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<Provider session={pageProps.session}>
 			<Navbar />
-			<Container as={'main'} className='main' fluid>
+			<Container as={'main'} fluid className='main'>
 				<Component {...pageProps} />
 			</Container>
 		</Provider>

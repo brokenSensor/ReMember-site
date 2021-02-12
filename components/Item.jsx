@@ -2,13 +2,8 @@ import styles from '../styles/Item.module.css';
 
 function Item() {
 	return (
-		<div className='col-sm-4'>
-			<div
-				className={'card ' + styles.item}
-				style={{
-					width: '16rem',
-				}}
-			>
+		<div className='col-sm-6 col-md-4'>
+			<div className={'card ' + styles.item}>
 				<img
 					src='https://image.pngaaa.com/612/733612-middle.png'
 					className='img-fluid card-img-top'

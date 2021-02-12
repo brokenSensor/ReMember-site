@@ -3,6 +3,7 @@
 	padding: 5%;
 	align-items: center;
 	height: 100vh;
+	margin: 0 !important;
 }
 
 .titleText {
@@ -32,6 +33,10 @@
 .sectionTitle {
 	text-align: center;
 	padding: 5% 0 1% 0;
+}
+
+.benRow {
+	margin: 0 !important;
 }
 
 .benifitsSection {

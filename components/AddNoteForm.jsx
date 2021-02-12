@@ -34,6 +34,7 @@ function AddNoteForm({ addNote, setShowForm }) {
 						name='title'
 						value={titleField}
 						onChange={handleChange}
+						autoComplete='off'
 					/>
 				</Form.Group>
 				<Form.Group>
@@ -44,6 +45,7 @@ function AddNoteForm({ addNote, setShowForm }) {
 						name={'content'}
 						value={contentField}
 						onChange={handleChange}
+						autoComplete='off'
 					/>
 				</Form.Group>
 				<Button

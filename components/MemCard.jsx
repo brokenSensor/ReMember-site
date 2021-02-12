@@ -5,17 +5,18 @@ import styles from '../styles/Desc.module.css';
 function MemCard({ note, deleteNote, id, updateStage, edit }) {
 	const [showAnswer, setShowAnswer] = useState(false);
 	return (
-		<Card style={{ width: '18rem' }}>
+		<Card className={styles.memCard}>
 			<Card.Body>
 				<Card.Title>{note.title}</Card.Title>
 				{edit && (
 					<Card.Title>
-						{'Review date: ' + new Date(note.curve.review).toLocaleDateString()}
+						{`Review date: ${new Date(note.curve.review).toLocaleDateString()}`}
 					</Card.Title>
 				)}
 				{showAnswer && <Card.Text>{note.content}</Card.Text>}
 				{showAnswer ? (
 					<Button
+						className={styles.btnRevDon}
 						variant='warning'
 						onClick={() => {
 							updateStage(id);
@@ -25,6 +26,7 @@ function MemCard({ note, deleteNote, id, updateStage, edit }) {
 					</Button>
 				) : (
 					<Button
+						className={styles.btnRevDon}
 						variant='primary'
 						onClick={() => {
 							setShowAnswer(!showAnswer);

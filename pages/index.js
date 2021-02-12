@@ -1,39 +1,38 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Item from '../components/Item';
+import { Container, Row } from 'react-bootstrap';
 // "title-section row"
 export default function Home() {
 	return (
 		<>
-			<section className={styles.titleSection + ' row'}>
-				<div className={'col-sm-6 ' + styles.titleText}>
-					<h1 className={styles.titleHeading + ''}>Remember better</h1>
-					<p className={styles.titleParagraph + ''}>
-						Study smarter, not harder
-					</p>
+			<Container as='section' fluid className={`row ${styles.titleSection}`}>
+				<div className={`col-sm-6 ${styles.titleText}`}>
+					<h1 className={styles.titleHeading}>Remember better</h1>
+					<p className={styles.titleParagraph}>Study smarter, not harder</p>
 				</div>
-				<div className={'col-sm-6 ' + styles.titleImageSec}>
+				<div className={`col-sm-6 ${styles.titleImageSec}`}>
 					<img
-						className={'img-fluid ' + styles.titleImg}
+						className={`img-fluid ${styles.titleImg}`}
 						src='https://purepng.com/public/uploads/large/human-brain-ouq.png'
 						alt=''
 					></img>
 				</div>
-			</section>
+			</Container>
 			<section className={styles.benifitsSection}>
 				<h2 className={styles.sectionTitle}>Benifits</h2>
-				<div className='row'>
+				<Row className={styles.benRow}>
 					<Item />
 					<Item />
 					<Item />
 					<Item />
 					<Item />
 					<Item />
-				</div>
+				</Row>
 			</section>
-			<section>
+			{/* <section>
 				<h2 className={styles.sectionTitle}>Enroll Now</h2>
-			</section>
+			</section> */}
 		</>
 	);
 }
