@@ -10,20 +10,20 @@ import AddNoteForm from '../../components/AddNoteForm';
 const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
 	const [showForm, setShowForm] = useState(false);
+	const [editMode, setEditMode] = useState(false);
+
 	const [notesState, setNotesState] = useState(notes);
-	console.log(notes);
 	const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
 	async function deleteNote(id) {
-		const newN = [...notesState];
-		newN.splice(id, 1);
-		setNotesState(newN);
+		notesState.splice(id, 1);
+		setNotesState([...notesState]);
 		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ notes: newN }),
+			body: JSON.stringify({ notes: notesState }),
 		});
 	}
 
@@ -35,7 +35,7 @@ const Desc = ({ notes }) => {
 		};
 		setNotesState(prV => {
 			prV.push(noteObj);
-			return prV;
+			return [...prV];
 		});
 		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
 			method: 'PUT',
@@ -51,7 +51,7 @@ const Desc = ({ notes }) => {
 			prV[id].lastReviewDate = new Date().toJSON();
 			prV[id].curve.review = addDays(new Date(), prV[id].curve.adder).toJSON();
 			prV[id].curve.adder += 1;
-			return prV;
+			return [...prV];
 		});
 
 		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
@@ -65,7 +65,10 @@ const Desc = ({ notes }) => {
 
 	function noteFilter(note) {
 		const today = new Date();
-		if (today > note.curve.review) {
+		today.setHours(0, 0, 0, 0);
+		const reviewDate = new Date(note.curve.review);
+		reviewDate.setHours(0, 0, 0, 0);
+		if (today >= reviewDate) {
 			return true;
 		} else {
 			return false;
@@ -85,12 +88,20 @@ const Desc = ({ notes }) => {
 				>
 					Add Note
 				</Button>
-				<Row>
-					{notesState.map((note, id) => {
-						if (noteFilter(note)) {
+				<Button
+					onClick={() => {
+						setEditMode(!editMode);
+					}}
+				>
+					Edit Mode
+				</Button>
+				{editMode ? (
+					<Row>
+						{notesState.map((note, id) => {
 							return (
 								<Col xs={12} sm={11} md={6} lg={4} key={id}>
 									<MemCard
+										edit={true}
 										updateStage={updateStage}
 										deleteNote={deleteNote}
 										note={note}
@@ -98,9 +109,26 @@ const Desc = ({ notes }) => {
 									></MemCard>
 								</Col>
 							);
-						}
-					})}
-				</Row>
+						})}
+					</Row>
+				) : (
+					<Row>
+						{notesState.map((note, id) => {
+							if (noteFilter(note)) {
+								return (
+									<Col xs={12} sm={11} md={6} lg={4} key={id}>
+										<MemCard
+											updateStage={updateStage}
+											deleteNote={deleteNote}
+											note={note}
+											id={id}
+										></MemCard>
+									</Col>
+								);
+							}
+						})}
+					</Row>
+				)}
 
 				{/* <Row>
 					<Col xs={12} sm={11} md={6} lg={4} className={styles.item}>
