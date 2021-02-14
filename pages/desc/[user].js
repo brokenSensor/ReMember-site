@@ -5,7 +5,7 @@ import MemCard from '../../components/MemCard';
 import dbConnect from '../../middleware/dbConnect';
 import User from '../../models/User';
 import { useState } from 'react';
-import AddNoteForm from '../../components/AddNoteForm';
+import NewCard from '../../components/NewCard';
 
 const Desc = ({ notes }) => {
 	const [session, loading] = useSession();
@@ -76,9 +76,6 @@ const Desc = ({ notes }) => {
 
 	return (
 		<>
-			{showForm && (
-				<AddNoteForm setShowForm={setShowForm} addNote={addNote}></AddNoteForm>
-			)}
 			<Container fluid className={styles.desc}>
 				<Row className={styles.btnRow}>
 					<Col>
@@ -137,6 +134,11 @@ const Desc = ({ notes }) => {
 								}
 							})}
 						</>
+					)}
+					{showForm && (
+						<Col xs={12} sm={6} md={6} lg={4} xl={3}>
+							<NewCard setShowForm={setShowForm} addNote={addNote}></NewCard>
+						</Col>
 					)}
 				</Row>
 			</Container>

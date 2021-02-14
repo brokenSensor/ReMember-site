@@ -67,3 +67,7 @@
 		width: 18rem;
 	}
 }
+
+.input {
+	width: -webkit-fill-available;
+}
