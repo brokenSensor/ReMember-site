@@ -71,3 +71,10 @@
 .input {
 	width: -webkit-fill-available;
 }
+.spinnerContainer {
+	display: flex;
+	height: calc(100vh - 56px);
+	justify-content: center;
+	align-items: center;
+	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
