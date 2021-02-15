@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Col, Container, Jumbotron, Row, Button, Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desc.module.css';
-import DeleteBtn from './DeleteBtn';
 
 function MemCard({ note, deleteNote, id, updateStage, edit }) {
 	const [showAnswer, setShowAnswer] = useState(false);
