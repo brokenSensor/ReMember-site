@@ -9,8 +9,8 @@ export default function Home() {
 		<>
 			<Container as='section' fluid className={`row ${styles.titleSection}`}>
 				<div className={`col-sm-6 ${styles.titleText}`}>
-					<h1 className={styles.titleHeading}>Remember better</h1>
-					<p className={styles.titleParagraph}>Study smarter, not harder</p>
+					<h1 className={styles.titleHeading}>Memory Keeper</h1>
+					<p className={styles.titleParagraph}>Learn once, remember forever</p>
 				</div>
 				<div className={`col-sm-6 ${styles.titleImageSec}`}>
 					<SVGTitle />
