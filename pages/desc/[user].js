@@ -1,13 +1,5 @@
-import { useSession, getSession } from 'next-auth/client';
-import {
-	Col,
-	Container,
-	Jumbotron,
-	Row,
-	Button,
-	Form,
-	Spinner,
-} from 'react-bootstrap';
+import { useSession } from 'next-auth/client';
+import { Col, Container, Row, Button, Spinner } from 'react-bootstrap';
 import styles from '../../styles/Desc.module.css';
 import MemCard from '../../components/MemCard';
 import dbConnect from '../../middleware/dbConnect';

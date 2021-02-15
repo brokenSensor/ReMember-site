@@ -1,4 +1,3 @@
-import { parseBody } from 'next/dist/next-server/server/api-utils';
 import dbConnect from '../../../middleware/dbConnect';
 import User from '../../../models/User';
 
@@ -13,7 +12,7 @@ export default async function handler(req, res) {
 	switch (method) {
 		case 'GET':
 			try {
-				const userNotes = await User.findOne(
+				await User.findOne(
 					{
 						name: username,
 					},

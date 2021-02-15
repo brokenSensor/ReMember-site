@@ -56,17 +56,6 @@ export default function Home() {
 					/>
 				</Row>
 			</section>
-			{/* <section>
-				<h2 className={styles.sectionTitle}>Enroll Now</h2>
-			</section> */}
 		</>
 	);
-}
-
-{
-	/* <img
-	className={`img-fluid ${styles.titleImg}`}
-	src='https://purepng.com/public/uploads/large/human-brain-ouq.png'
-	alt=''
-></img>; */
 }

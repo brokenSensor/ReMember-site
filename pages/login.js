@@ -1,5 +1,5 @@
-import { Container, Row, Col, Form, Button, Jumbotron } from 'react-bootstrap';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { Container, Jumbotron } from 'react-bootstrap';
+import { signIn } from 'next-auth/client';
 import styles from '../styles/Login.module.css';
 import {
 	GoogleLoginButton,

@@ -1,15 +1,6 @@
-import {
-	Navbar,
-	Nav,
-	Form,
-	FormControl,
-	Button,
-	Image,
-	NavDropdown,
-	Spinner,
-} from 'react-bootstrap';
+import { Nav, Image, NavDropdown, Spinner } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signOut, useSession } from 'next-auth/client';
 import styles from '../styles/Navbar.module.css';
 
 function NavProfile() {
@@ -37,8 +28,6 @@ function NavProfile() {
 						className={styles.profileImage}
 					></Image>
 					<NavDropdown title={session.user.name} id='basic-nav-dropdown'>
-						{/* <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-						<NavDropdown.Divider /> */}
 						<NavDropdown.Item onClick={() => signOut({ callbackUrl: '/' })}>
 							Sign out
 						</NavDropdown.Item>
