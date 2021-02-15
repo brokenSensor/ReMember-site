@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css';
 import Item from '../components/Item';
 import { Container, Row } from 'react-bootstrap';
 import SVGTitle from '../components/SVGTitle';
+import Footer from '../components/Footer';
 
 export default function Home() {
 	return (
@@ -56,6 +57,7 @@ export default function Home() {
 					/>
 				</Row>
 			</section>
+			<Footer />
 		</>
 	);
 }
