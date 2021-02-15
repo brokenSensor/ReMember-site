@@ -1,11 +1,13 @@
 import dbConnect from '../../../util/dbConnect';
 import User from '../../../models/User';
+import { getSession } from 'next-auth/client';
 
 export default async function handler(req, res) {
+	const { method } = req;
+
 	const {
-		query: { username },
-		method,
-	} = req;
+		user: { name },
+	} = await getSession({ req });
 
 	await dbConnect();
 
@@ -14,7 +16,7 @@ export default async function handler(req, res) {
 			try {
 				await User.findOne(
 					{
-						name: username,
+						name: name,
 					},
 					['notes'],
 					(err, result) => {
@@ -33,17 +35,13 @@ export default async function handler(req, res) {
 			break;
 		case 'PUT':
 			try {
-				await User.updateOne(
-					{ name: username },
-					{ notes: req.body.notes },
-					err => {
-						if (err) {
-							res.status(err).end();
-						} else {
-							res.status(200).end();
-						}
+				await User.updateOne({ name: name }, { notes: req.body.notes }, err => {
+					if (err) {
+						res.status(err).end();
+					} else {
+						res.status(200).end();
 					}
-				); /* Update notes */
+				}); /* Update notes */
 			} catch (err) {
 				res.status(err).end();
 			}

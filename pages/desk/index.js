@@ -1,4 +1,4 @@
-import { session, useSession, getSession } from 'next-auth/client';
+import { useSession, getSession } from 'next-auth/client';
 import { Col, Container, Row, Button, Spinner } from 'react-bootstrap';
 import styles from '../../styles/Desk.module.css';
 import MemCard from '../../components/MemCard';
@@ -8,22 +8,17 @@ import { useState } from 'react';
 import NewCard from '../../components/NewCard';
 import { useRouter } from 'next/router';
 
-const Desk = ({ notes, isAuth }) => {
+const Desk = ({ notes }) => {
 	const [session, loading] = useSession();
-	const router = useRouter();
 
 	const [showForm, setShowForm] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 	const [notesState, setNotesState] = useState(notes);
 
-	if (!isAuth) {
-		router.push(`/desk/${session.user.name}`);
-	}
-
 	async function deleteNote(id) {
 		notesState.splice(id, 1);
 		setNotesState([...notesState]);
-		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
+		await fetch(`http://localhost:3000/api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -42,7 +37,7 @@ const Desk = ({ notes, isAuth }) => {
 			prV.push(noteObj);
 			return [...prV];
 		});
-		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
+		await fetch(`http://localhost:3000/api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -65,7 +60,7 @@ const Desk = ({ notes, isAuth }) => {
 			return [...prV];
 		});
 
-		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
+		await fetch(`http://localhost:3000/api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -126,7 +121,7 @@ const Desk = ({ notes, isAuth }) => {
 									return (
 										<Col xs={12} sm={6} md={6} lg={4} xl={3} key={id}>
 											<MemCard
-												edit={true}
+												allInfo={true}
 												updateStage={updateStage}
 												deleteNote={deleteNote}
 												note={note}
@@ -167,15 +162,13 @@ const Desk = ({ notes, isAuth }) => {
 };
 
 export async function getServerSideProps(context) {
-	const { params } = context;
 	const session = await getSession(context);
-	if (params.user != session.user.name) {
-		return { props: { notes: [], isAuth: false } };
-	}
+
 	await dbConnect();
+
 	const userNotes = await User.findOne(
 		{
-			name: params.user,
+			name: session.user.name,
 		},
 		['notes']
 	);
@@ -194,7 +187,7 @@ export async function getServerSideProps(context) {
 			},
 		];
 	}
-	return { props: { notes: notes, isAuth: true } };
+	return { props: { notes: notes } };
 }
 
 export default Desk;
