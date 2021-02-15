@@ -19,7 +19,8 @@
     "react": "17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "17.0.1",
-    "react-loader-spinner": "^4.0.0"
+    "react-loader-spinner": "^4.0.0",
+    "react-social-login-buttons": "^3.1.2"
   },
   "peerOptionalDependencies": {
     "mongodb": "^3.6.4"
