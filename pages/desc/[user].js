@@ -57,7 +57,13 @@ const Desc = ({ notes }) => {
 		setNotesState(prV => {
 			prV[id].lastReviewDate = new Date().toJSON();
 			prV[id].curve.review = addDays(new Date(), prV[id].curve.adder).toJSON();
-			prV[id].curve.adder += 1;
+			if (prV[id].curve.adder >= 7) {
+				prV[id].curve.adder = prV[id].curve.adder * 2;
+			} else {
+				prV[id].curve.adder += 1;
+			}
+			console.log(prV[id].curve.adder);
+
 			return [...prV];
 		});
 
