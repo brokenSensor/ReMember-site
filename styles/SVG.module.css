@@ -1,0 +1,46 @@
+.svg {
+	height: 50vh;
+	width: auto;
+}
+.g {
+	fill: rgb(143, 219, 219);
+}
+.brain {
+	fill: #0e49b5;
+}
+.ground {
+	fill: #54e346;
+}
+.book {
+	fill: #fffaa4;
+}
+@media (min-width: 0px) {
+	.svg {
+		height: 40vh;
+		width: auto;
+	}
+}
+@media (min-width: 576px) {
+	.svg {
+		height: 100vh;
+		width: auto;
+	}
+}
+@media (min-width: 768px) {
+	.svg {
+		height: 70vh;
+		width: auto;
+	}
+}
+@media (min-width: 992px) {
+	.svg {
+		height: 75vh;
+		width: auto;
+	}
+}
+@media (min-width: 1200px) {
+	.svg {
+		height: 80vh;
+		width: auto;
+	}
+}

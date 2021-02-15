@@ -2,7 +2,8 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Item from '../components/Item';
 import { Container, Row } from 'react-bootstrap';
-// "title-section row"
+import SVGTitle from '../components/SVGTitle';
+
 export default function Home() {
 	return (
 		<>
@@ -12,11 +13,7 @@ export default function Home() {
 					<p className={styles.titleParagraph}>Study smarter, not harder</p>
 				</div>
 				<div className={`col-sm-6 ${styles.titleImageSec}`}>
-					<img
-						className={`img-fluid ${styles.titleImg}`}
-						src='https://purepng.com/public/uploads/large/human-brain-ouq.png'
-						alt=''
-					></img>
+					<SVGTitle />
 				</div>
 			</Container>
 			<section className={styles.benifitsSection}>
@@ -35,4 +32,12 @@ export default function Home() {
 			</section> */}
 		</>
 	);
+}
+
+{
+	/* <img
+	className={`img-fluid ${styles.titleImg}`}
+	src='https://purepng.com/public/uploads/large/human-brain-ouq.png'
+	alt=''
+></img>; */
 }
