@@ -9,20 +9,12 @@
 	font-family: 'Overpass', sans-serif;
 }
 
-.titleText {
-	/* padding: 5px; */
-}
-
 .titleHeading {
 	font-weight: 500;
-	/* font-size: 2rem; */
 }
 
 .titleParagraph {
 	font-size: 3rem;
-}
-
-.titleImageSec {
 }
 
 .titleImg {
