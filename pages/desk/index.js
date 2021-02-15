@@ -17,7 +17,7 @@ const Desk = ({ notes }) => {
 	async function deleteNote(id) {
 		notesState.splice(id, 1);
 		setNotesState([...notesState]);
-		await fetch(`http://localhost:3000/api/desk`, {
+		await fetch(`${process.env.NEXTAUTH_URL}api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const Desk = ({ notes }) => {
 			prV.push(noteObj);
 			return [...prV];
 		});
-		await fetch(`http://localhost:3000/api/desk`, {
+		await fetch(`${process.env.NEXTAUTH_URL}api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const Desk = ({ notes }) => {
 			return [...prV];
 		});
 
-		await fetch(`http://localhost:3000/api/desk`, {
+		await fetch(`${process.env.NEXTAUTH_URL}api/desk`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
