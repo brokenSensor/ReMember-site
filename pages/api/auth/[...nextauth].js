@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-require('dotenv').config();
 
 export default NextAuth({
 	providers: [
