@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .profileImage {
 	align-self: center;
 }
+@media (max-width: 992px) {
+	.profileImage {
+		align-self: normal;
+	}
+}
 .body {
+	font-family: 'Roboto', sans-serif;
 }

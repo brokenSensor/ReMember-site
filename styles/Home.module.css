@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@600&family=Roboto&display=swap');
+
 .titleSection {
 	background-color: rgb(158, 236, 255);
 	padding: 5%;
 	align-items: center;
 	height: calc(100vh - 56px);
 	margin: 0 !important;
+	font-family: 'Overpass', sans-serif;
 }
 
 .titleText {
@@ -40,6 +43,7 @@
 }
 
 .benifitsSection {
+	font-family: 'Roboto', sans-serif;
 }
 
 .item {
