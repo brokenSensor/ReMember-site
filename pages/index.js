@@ -17,14 +17,43 @@ export default function Home() {
 				</div>
 			</Container>
 			<section className={styles.benifitsSection}>
-				<h2 className={styles.sectionTitle}>Benifits</h2>
+				<h2 className={styles.sectionTitle}>Introduction</h2>
 				<Row className={styles.benRow}>
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
-					<Item />
+					<Item
+						url={'/images/1.png'}
+						text={
+							"With my simple app, you don't have to worry about forgetting something important!"
+						}
+					/>
+					<Item
+						url={'/images/2.png'}
+						text={
+							'Just login with your preferred method and get access to your personal desk!'
+						}
+					/>
+					<Item
+						url={'/images/3.png'}
+						text={
+							'Start creating your first memory note by pressing Add Note button.'
+						}
+					/>
+					<Item
+						url={'/images/4.png'}
+						text={
+							'Enter the phrase, by what you want to memorize, and then add a brief description of that.'
+						}
+					/>
+					<Item
+						url={'/images/5.png'}
+						text={
+							"And that's it! Note will appear on your desk whenever your brain will need to refresh your memory, which will eventually lead to remembering that thing forever!"
+						}
+					/>
+					<Item
+						href={'https://en.wikipedia.org/wiki/Forgetting_curve'}
+						text={`Learn more about Forgetting Curve here!`}
+						url={'/images/6.png'}
+					/>
 				</Row>
 			</section>
 			{/* <section>

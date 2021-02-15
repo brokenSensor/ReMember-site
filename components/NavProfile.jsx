@@ -37,8 +37,8 @@ function NavProfile() {
 						className={styles.profileImage}
 					></Image>
 					<NavDropdown title={session.user.name} id='basic-nav-dropdown'>
-						<NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
-						<NavDropdown.Divider />
+						{/* <NavDropdown.Item href='/profile'>Profile</NavDropdown.Item>
+						<NavDropdown.Divider /> */}
 						<NavDropdown.Item onClick={() => signOut({ callbackUrl: '/' })}>
 							Sign out
 						</NavDropdown.Item>

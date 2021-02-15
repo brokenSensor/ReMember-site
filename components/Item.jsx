@@ -1,19 +1,26 @@
 import styles from '../styles/Item.module.css';
+import Image from 'next/image';
 
-function Item() {
+function Item({ text, href, url }) {
 	return (
 		<div className='col-sm-6 col-md-4'>
 			<div className={'card ' + styles.item}>
-				<img
-					src='https://image.pngaaa.com/612/733612-middle.png'
-					className='img-fluid card-img-top'
-					alt='...'
-				/>
+				{url && (
+					<Image
+						src={url}
+						className='img-fluid card-img-top'
+						width={200}
+						height={200}
+					/>
+				)}
 				<div className='card-body'>
-					<p className='card-text'>
-						Some quick example text to build on the card title and make up the
-						bulk of the card's content.
-					</p>
+					{href ? (
+						<a href={href}>
+							<p className='card-text'>{text}</p>
+						</a>
+					) : (
+						<p className='card-text'>{text}</p>
+					)}
 				</div>
 			</div>
 		</div>
