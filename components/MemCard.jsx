@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import styles from '../styles/Desc.module.css';
+import styles from '../styles/Desk.module.css';
 
 function MemCard({ note, deleteNote, id, updateStage, edit }) {
 	const [showAnswer, setShowAnswer] = useState(false);

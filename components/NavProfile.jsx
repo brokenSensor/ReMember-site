@@ -17,8 +17,8 @@ function NavProfile() {
 				<Nav.Link onClick={() => router.push('/login')}>Login</Nav.Link>
 			) : (
 				<>
-					<Nav.Link onClick={() => router.push('/desc/' + session.user.name)}>
-						My Desc
+					<Nav.Link onClick={() => router.push('/desk/' + session.user.name)}>
+						My Desk
 					</Nav.Link>
 					<Image
 						width={25}

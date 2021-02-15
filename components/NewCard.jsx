@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Col, Container, Jumbotron, Row, Button, Card } from 'react-bootstrap';
-import styles from '../styles/Desc.module.css';
+import styles from '../styles/Desk.module.css';
 
 function MemCard({ addNote, setShowForm }) {
 	const [titleField, setTitleField] = useState('');

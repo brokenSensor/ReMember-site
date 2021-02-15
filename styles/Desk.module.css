@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-.desc {
+.desk {
 	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 	min-height: calc(100vh - 56px);
 	font-family: 'Roboto', sans-serif;

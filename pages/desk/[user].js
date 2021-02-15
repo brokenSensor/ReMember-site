@@ -1,23 +1,29 @@
-import { useSession } from 'next-auth/client';
+import { session, useSession, getSession } from 'next-auth/client';
 import { Col, Container, Row, Button, Spinner } from 'react-bootstrap';
-import styles from '../../styles/Desc.module.css';
+import styles from '../../styles/Desk.module.css';
 import MemCard from '../../components/MemCard';
 import dbConnect from '../../util/dbConnect';
 import User from '../../models/User';
 import { useState } from 'react';
 import NewCard from '../../components/NewCard';
+import { useRouter } from 'next/router';
 
-const Desc = ({ notes }) => {
+const Desk = ({ notes, isAuth }) => {
 	const [session, loading] = useSession();
+	const router = useRouter();
 
 	const [showForm, setShowForm] = useState(false);
 	const [editMode, setEditMode] = useState(false);
 	const [notesState, setNotesState] = useState(notes);
 
+	if (!isAuth) {
+		router.push(`/desk/${session.user.name}`);
+	}
+
 	async function deleteNote(id) {
 		notesState.splice(id, 1);
 		setNotesState([...notesState]);
-		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
+		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -36,7 +42,7 @@ const Desc = ({ notes }) => {
 			prV.push(noteObj);
 			return [...prV];
 		});
-		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
+		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -59,7 +65,7 @@ const Desc = ({ notes }) => {
 			return [...prV];
 		});
 
-		await fetch('http://localhost:3000/api/desc/' + session.user.name, {
+		await fetch('http://localhost:3000/api/desk/' + session.user.name, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -89,7 +95,7 @@ const Desc = ({ notes }) => {
 					</Spinner>
 				</Container>
 			) : (
-				<Container fluid className={styles.desc}>
+				<Container fluid className={styles.desk}>
 					<Row className={styles.btnRow}>
 						<Col>
 							<Button
@@ -160,9 +166,13 @@ const Desc = ({ notes }) => {
 	);
 };
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps(context) {
+	const { params } = context;
+	const session = await getSession(context);
+	if (params.user != session.user.name) {
+		return { props: { notes: [], isAuth: false } };
+	}
 	await dbConnect();
-
 	const userNotes = await User.findOne(
 		{
 			name: params.user,
@@ -184,10 +194,10 @@ export async function getServerSideProps({ params }) {
 			},
 		];
 	}
-	return { props: { notes: notes } };
+	return { props: { notes: notes, isAuth: true } };
 }
 
-export default Desc;
+export default Desk;
 
 function addDays(date, days) {
 	var result = new Date(date);
