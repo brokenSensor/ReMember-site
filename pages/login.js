@@ -14,14 +14,14 @@ export default function Login() {
 					<GithubLoginButton
 						onClick={() =>
 							signIn('github', {
-								callbackUrl: `${process.env.MAIN_URL}desk`,
+								callbackUrl: `https://memory-keeper-app.herokuapp.com/desk`,
 							})
 						}
 					/>
 					<GoogleLoginButton
 						onClick={() =>
 							signIn('google', {
-								callbackUrl: `${process.env.MAIN_URL}desk`,
+								callbackUrl: `https://memory-keeper-app.herokuapp.com/desk`,
 							})
 						}
 					/>
