@@ -7,7 +7,7 @@ import {
 } from 'react-social-login-buttons';
 
 export default function Login() {
-	console.log(`${process.env.NEXTAUTH_URL}desk`);
+	console.log(`${NEXTAUTH_URL}desk`);
 	return (
 		<>
 			<Container fluid className={`${styles.cont}`}>
@@ -15,14 +15,14 @@ export default function Login() {
 					<GithubLoginButton
 						onClick={() =>
 							signIn('github', {
-								callbackUrl: `${process.env.NEXTAUTH_URL}desk`,
+								callbackUrl: `${NEXTAUTH_URL}desk`,
 							})
 						}
 					/>
 					<GoogleLoginButton
 						onClick={() =>
 							signIn('google', {
-								callbackUrl: `${process.env.NEXTAUTH_URL}desk`,
+								callbackUrl: `${NEXTAUTH_URL}desk`,
 							})
 						}
 					/>
