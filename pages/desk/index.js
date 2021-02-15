@@ -6,7 +6,6 @@ import dbConnect from '../../util/dbConnect';
 import User from '../../models/User';
 import { useState } from 'react';
 import NewCard from '../../components/NewCard';
-import { useRouter } from 'next/router';
 
 const Desk = ({ notes }) => {
 	const [session, loading] = useSession();
@@ -28,6 +27,7 @@ const Desk = ({ notes }) => {
 	}
 
 	async function addNote(noteObj) {
+		// Adding notes to DB
 		noteObj.lastReviewDate = new Date().toJSON();
 		noteObj.curve = {
 			review: addDays(new Date(), 1).toJSON(),
@@ -46,7 +46,8 @@ const Desk = ({ notes }) => {
 		});
 	}
 
-	async function updateStage(id) {
+	async function updateNotes(id) {
+		// Updeting notes after review
 		setNotesState(prV => {
 			prV[id].lastReviewDate = new Date().toJSON();
 			prV[id].curve.review = addDays(new Date(), prV[id].curve.adder).toJSON();
@@ -70,6 +71,7 @@ const Desk = ({ notes }) => {
 	}
 
 	function noteFilter(note) {
+		// Filters out notes that not yet ready for review
 		const today = new Date();
 		today.setHours(0, 0, 0, 0);
 		const reviewDate = new Date(note.curve.review);
@@ -122,7 +124,7 @@ const Desk = ({ notes }) => {
 										<Col xs={12} sm={6} md={6} lg={4} xl={3} key={id}>
 											<MemCard
 												allInfo={true}
-												updateStage={updateStage}
+												updateNotes={updateNotes}
 												deleteNote={deleteNote}
 												note={note}
 												id={id}
@@ -138,7 +140,7 @@ const Desk = ({ notes }) => {
 										return (
 											<Col xs={12} sm={6} md={6} lg={4} xl={3} key={id}>
 												<MemCard
-													updateStage={updateStage}
+													updateNotes={updateNotes}
 													deleteNote={deleteNote}
 													note={note}
 													id={id}

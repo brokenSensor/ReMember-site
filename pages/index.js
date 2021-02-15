@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Item from '../components/Item';
 import { Container, Row } from 'react-bootstrap';

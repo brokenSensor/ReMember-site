@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desk.module.css';
 
-function MemCard({ note, deleteNote, id, updateStage, allInfo }) {
+function MemCard({ note, deleteNote, id, updateNotes, allInfo }) {
 	const [showAnswer, setShowAnswer] = useState(false);
 	return (
 		<Card className={styles.memCard}>
@@ -19,7 +19,7 @@ function MemCard({ note, deleteNote, id, updateStage, allInfo }) {
 						className={styles.btnRevDon}
 						variant='warning'
 						onClick={() => {
-							updateStage(id);
+							updateNotes(id);
 						}}
 					>
 						Done
