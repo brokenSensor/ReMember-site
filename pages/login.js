@@ -7,6 +7,7 @@ import {
 } from 'react-social-login-buttons';
 
 export default function Login() {
+	console.log(`${process.env.NEXTAUTH_URL}desk`);
 	return (
 		<>
 			<Container fluid className={`${styles.cont}`}>
