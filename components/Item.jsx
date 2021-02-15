@@ -4,7 +4,7 @@ import Image from 'next/image';
 function Item({ text, href, url }) {
 	return (
 		<div className='col-sm-6 col-md-4'>
-			<div className={'card ' + styles.item}>
+			<div className={`card ${styles.item}`}>
 				{url && (
 					<Image
 						src={url}

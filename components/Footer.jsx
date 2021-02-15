@@ -4,8 +4,8 @@ function Footer() {
 	const year = new Date().getFullYear();
 	return (
 		<>
-			<div class='footer-padding'></div>
-			<div class='footer'>
+			<div className='footer-padding'></div>
+			<div className='footer'>
 				<p>{`© ${year} made by Eugeny Hrebtov`}</p>
 			</div>
 		</>

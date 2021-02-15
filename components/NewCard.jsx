@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Col, Container, Jumbotron, Row, Button, Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desk.module.css';
 
 function MemCard({ addNote, setShowForm }) {
 	const [titleField, setTitleField] = useState('');
 	const [contentField, setContentField] = useState('');
+
 	function handleChange(event) {
 		switch (event.target.name) {
 			case 'title':
@@ -18,10 +19,12 @@ function MemCard({ addNote, setShowForm }) {
 				break;
 		}
 	}
+
 	function submit() {
 		addNote({ title: titleField, content: contentField });
 		setShowForm(false);
 	}
+
 	return (
 		<Card as='form' className={styles.memCard}>
 			<Card.Body>

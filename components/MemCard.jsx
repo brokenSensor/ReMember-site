@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import styles from '../styles/Desk.module.css';
 
-function MemCard({ note, deleteNote, id, updateStage, edit }) {
+function MemCard({ note, deleteNote, id, updateStage, allInfo }) {
 	const [showAnswer, setShowAnswer] = useState(false);
 	return (
 		<Card className={styles.memCard}>
 			<Card.Body>
 				<Card.Title>{note.title}</Card.Title>
-				{edit && (
+				{allInfo && (
 					<Card.Title>
 						{`Review date: ${new Date(note.curve.review).toLocaleDateString()}`}
 					</Card.Title>
