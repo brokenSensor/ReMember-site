@@ -12,10 +12,18 @@ export default function Login() {
 			<Container fluid className={`${styles.cont}`}>
 				<Jumbotron className={`${styles.jumb}`}>
 					<GithubLoginButton
-						onClick={() => signIn('github', { callbackUrl: '/desk' })}
+						onClick={() =>
+							signIn('github', {
+								callbackUrl: `${process.env.NEXTAUTH_URL}desk`,
+							})
+						}
 					/>
 					<GoogleLoginButton
-						onClick={() => signIn('google', { callbackUrl: '/desk' })}
+						onClick={() =>
+							signIn('google', {
+								callbackUrl: `${process.env.NEXTAUTH_URL}desk`,
+							})
+						}
 					/>
 				</Jumbotron>
 			</Container>
