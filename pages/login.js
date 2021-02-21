@@ -22,7 +22,7 @@ export default function Login() {
 						onClick={() =>
 							signIn('google', {
 								callbackUrl: `https://memory-keeper-app.herokuapp.com/desk`,
-							}) 
+							})
 						}
 					/>
 				</Jumbotron>
